@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: Cocina Fácil API
+  version: 1.0.0
+paths:
+  /api/recipes:
+    get:
+      summary: List recipes
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create recipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeCreate'
+      responses:
+        '201':
+          description: Created
+  /api/recipes/search:
+    get:
+      summary: Search recipes by name
+  /api/recipes/{id}:
+    get:
+      summary: Get recipe by id
+    put:
+      summary: Update recipe
+    delete:
+      summary: Delete recipe
+  /api/recipes/{id}/favorite:
+    patch:
+      summary: Toggle favorite
+  /api/ingredients:
+    get:
+      summary: List ingredients
+    post:
+      summary: Create ingredient
+  /api/ingredients/{id}/recipes:
+    get:
+      summary: List recipes for ingredient
+components:
+  schemas:
+    RecipeCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        steps:
+          type: string
+        ingredients:
+          type: array
+          items:
+            oneOf:
+              - type: number
+              - type: string
